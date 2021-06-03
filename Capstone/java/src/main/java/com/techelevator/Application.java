@@ -2,6 +2,12 @@ package com.techelevator;
 
 import com.techelevator.view.MenuDrivenCLI;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.util.List;
+import java.util.Scanner;
+import com.techelevator.view.VendingMachine;
+
 public class Application {
 
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
@@ -15,7 +21,13 @@ public class Application {
 		application.run();
 	}
 
+//	public void test(){
+//		System.out.print(snackItem);
+//	}
+
 	public void run() {
+		Scanner scanner = new Scanner(System.in);
+
 		while (true) {
 			String selection = ui.promptForSelection(MAIN_MENU_OPTIONS);
 
@@ -29,3 +41,4 @@ public class Application {
 
 
 }
+//in application have vending machine object that calls vending machine items
