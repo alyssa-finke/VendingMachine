@@ -18,11 +18,14 @@ public class Application {
 
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
-	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE };
+	private static final String[] MAIN_MENU_OPTIONS = {MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE};
 
 	private final MenuDrivenCLI ui = new MenuDrivenCLI();
+	private VendingMachine vendingMachine = new VendingMachine();
+	Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
+
 		Application application = new Application();
 		application.run();
 	}
@@ -31,64 +34,29 @@ public class Application {
 	}
 
 	public void run() {
-		VendingMachine vendingMachine = new VendingMachine();
+
 		while (true) {
 			String selection = ui.promptForSelection(MAIN_MENU_OPTIONS);
 
-			if (selection.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				// Read Inventory File
-				File inventoryDataFile = new File("inventory.txt");
-				// Create Array of Items
-				// Add Items to Vending Machine
-				try {
-					Scanner inventoryDataInput = new Scanner(inventoryDataFile);
-					while (inventoryDataInput.hasNext()) {
-						String inventoryLine = inventoryDataInput.nextLine();
-						String parts[] = inventoryLine.split("\\|");
-						String slotNumber = parts[0];
-						String snackName = parts[1];
-						String snackPrice = parts[2];
-						String snackType = parts[3];
-						String snackQuantity = parts[4];
+			if (selection.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) { //option 1, display list of items with slot number, name, and price
 
-						Item item = new Item(snackName, Double.parseDouble(snackPrice), snackType, Integer.parseInt(snackQuantity));
-						vendingMachine.addItem(slotNumber, item);
+					for (Map.Entry<String, Item> entry : vendingMachine.getSnackItem().entrySet()) {
+						Item item = entry.getValue();
+						int quantity = item.getQuantity();
+						System.out.println(entry.getKey() + ": " + item.getName() + " : " + item.getPrice());
 					}
 
-				} catch (FileNotFoundException ex) {
-					System.err.println("Can not open file");
-				}
-
-				// Display vending machine items
-				vendingMachine.displayItems();
 			} else if (selection.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				// Get user input (Deposit, Purchase, Refund) ui.promptForSelection(String[] purchaseOptions)
 
-				String[] purchaseOptions  = { "", "" };
-				//String purchaseSelection = ui.promptForSelection();
+				//prompt for feed money
+				System.out.println("Please deposit money");
+				String moneyInput = scanner.nextLine();
+				double newBalance = Double.parseDouble(moneyInput); //+vendingMachine.getBalance();
+				vendingMachine.setBalance(newBalance);
 
-				/*
-				If (deposit)
-					Ask user for amount to deposit (Not want to use ui.promptForSelection)
-					Convert amount to Integer
-					Add money to vending machine balance
-					Show new balance
-				else if (purchase)
-					Check user balance
-					if (user balance is empty)
-						show error message
-					else
-						Optional: Display vending machine items
-						Ask user for input. Obtain item location (A1, A2, A3, etc.)
-						Get Item from vending machine
-						Subtract cost from balance
-						Subtract item from quantity
-						Check Item type
-						Print item eating sounds based on item type
-				else if (refund)
-					Convert vending machine balance to coins
-					Display refund amount
-				 */
+
+				String[] purchaseOptions = {"", ""};
 			}
 		}
 	}

@@ -1,52 +1,54 @@
 package com.techelevator.view;
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
+
 import com.techelevator.view.Item;
 
 public class VendingMachine {
+    private Map<String, Item> snackItem = new TreeMap<>();
+    private double balance = 0;
 
-        private Map<String, Item> snackItem = new TreeMap<>();
+    public VendingMachine() {
 
-        public VendingMachine() {
-           // this.snackItem = snackItem;
+        Scanner scanner = new Scanner(System.in);
+        File inventoryDataFile = new File("inventory.txt");
+
+        try {
+            Scanner inventoryDataInput = new Scanner(inventoryDataFile);
+            while (inventoryDataInput.hasNext()) {
+                String inventoryLine = inventoryDataInput.nextLine();
+                String parts[] = inventoryLine.split("\\|");
+                String slotNumber = parts[0];
+                String snackName = parts[1];
+                String snackPrice = parts[2];
+                String snackType = parts[3];
+
+                Item item = new Item(snackName, Double.parseDouble(snackPrice), snackType, 5);
+                snackItem.put(slotNumber, item);
+            }
+        } catch (IOException error) {
+            System.err.println("Can not open file");
         }
+    }
+// getters and setters
+    public Map<String, Item> getSnackItem() { //getter for snackItem map
+        return snackItem;
+    } //getter for snackItem
 
-        public Map<String, Item> getSnackItem () {
-            return snackItem;
-        }
 
-        public void addItem(String key,Item item){
-            snackItem.put(key,item);
-        }
+    public double getBalance() { //getter for balance
+        return balance;
+    } //getter for balance
 
-       public void displayItems() {
-            for (Map.Entry<String,Item> entry : snackItem.entrySet()) {
-                Item item = entry.getValue();
-                int quantity = item.getQuantity();
-                System.out.print(entry.getKey() + ": " + item.getName());
-           }
-        }
-
+    public void setBalance(double balance) { //setter for balance
+        this.balance = balance;
+    } //setter for balance
 }
 
-//create constructor for vending machine
-//call the method from the constructor
-//have a getter for vending machine items
-//in application have vending machine object that calls vending machine items
 
-
-//Setter for variable quantity?
-//Make a method that sets
-
-
-//vending machine should have inventory
-//then have the object in the application
-//have a method in vending machine to get inventory
-
-//have a balance here for customer money

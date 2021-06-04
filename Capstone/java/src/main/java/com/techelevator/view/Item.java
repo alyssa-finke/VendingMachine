@@ -6,8 +6,6 @@ public class Item {
     private String type;
     private int quantity = 5;
     private String slotNumber;
-    //should quantity be static/constant?
-
 
     public Item(String name, double price, String type, int quantity) {
         this.name = name;
