@@ -36,7 +36,8 @@ public class VendingMachine {
             System.err.println("Can not open file");
         }
     }
-// getters and setters
+
+    // getters and setters
     public Map<String, Item> getSnackItem() { //getter for snackItem map
         return snackItem;
     } //getter for snackItem
@@ -46,9 +47,9 @@ public class VendingMachine {
         return balance;
     } //getter for balance
 
-    public Item getItemAtSlotNumber(String slotNumber){
+    public Item getItemAtSlotNumber(String slotNumber) {
         Item chosenOne = snackItem.get(slotNumber);
-       return chosenOne;
+        return chosenOne;
 
     }
 
@@ -56,7 +57,23 @@ public class VendingMachine {
         this.balance = balance;
     } //setter for balance
 
+    public String purchaseItem(String userSelection) {
+        Item chosenOne = snackItem.get(userSelection);
+        if (chosenOne == null) {
+            return "Selection Invalid. Please Try Again";
+        } else if (getSnackItem().containsKey(userSelection)) {
+            if (balance < chosenOne.getPrice()) {
+                return "Insufficient funds";
+            } else { //Do all things to by
+                balance -= chosenOne.getPrice();
+                chosenOne.setQuantity(chosenOne.getQuantity() - 1);
+                //deduct 1 from quantity
+                //return noise
+            }
+        }
+        return "This is a String";
 
+    }
 }
-
+//Do we need to create userSelection over here?
 

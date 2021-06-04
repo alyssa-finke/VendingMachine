@@ -4,6 +4,7 @@ import com.sun.jdi.ObjectReference;
 import com.techelevator.view.Item;
 import com.techelevator.view.MenuDrivenCLI;
 import com.techelevator.view.VendingMachine;
+import com.techelevator.view.Item;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -72,31 +73,28 @@ public class Application {
                         }
                         System.out.println("Please select item slotNumber");
                         String userSelection = scanner.nextLine();//select chosen item's slot number (use vendingMachine.purchase.A1?)
-                        Item chosenOne = vendingMachine.getItemAtSlotNumber(userSelection);
-                        if (chosenOne == null) {
-                            System.out.println("Selection Invalid. Please Try Again");
-                        } else if (vendingMachine.getSnackItem().containsKey(userSelection)) {
-                            if (vendingMachine.getBalance() < chosenOne.getPrice()) {
-                                System.out.println("Insufficient funds");
-                            }
 
-                        }
+                        String result = vendingMachine.purchaseItem(userSelection);
+                        System.out.print(result);
 
-                        //Once selected, if balance < item price, return "Need more $" and return to purchase menu
-                        // if once selected item quantity = 0, return "SOLD OUT" and return to purchase menu
-                        //If item selected can be bought, then respond with equivalent sound based on item type
-                        //Once item is "bought" then deduct item price from balance and deduct 1 from item quantity amount
-                        //Return to purchase menu
                     }
 
-
-                    String[] purchaseOptions = {"", ""};
+                    //if(chosenOne.getQuantity() == 0){
+                    // System.out.println("SOLD OUT");
+                    //Once selected, if balance < item price, return "Need more $" and return to purchase menu
+                    // if once selected item quantity = 0, return "SOLD OUT" and return to purchase menu
+                    //If item selected can be bought, then respond with equivalent sound based on item type
+                    //Once item is "bought" then deduct item price from balance and deduct 1 from item quantity amount
+                    //Return to purchase menu
                 }
+
+
+               // String[] purchaseOptions = {"", ""};
             }
         }
-
-
     }
 
+
 }
+
 //in application have vending machine object that calls vending machine items
