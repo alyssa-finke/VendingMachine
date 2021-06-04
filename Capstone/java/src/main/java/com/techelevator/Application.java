@@ -64,18 +64,23 @@ public class Application {
 
                     } else if (newSelection.equals(SELECT_ITEM_TO_PURCHASE)) {
 
-                        System.out.println("Please select item slotNumber"); //prompt customer to select item and display items
+                        //prompt customer to select item and display items
                         for (Map.Entry<String, Item> entry : vendingMachine.getSnackItem().entrySet()) {
                             Item item = entry.getValue();
                             int quantity = item.getQuantity();
                             System.out.println(entry.getKey() + ": " + item.getName() + " : " + item.getPrice());
                         }
-                        String userSelection = scanner.nextLine();    //select chosen item's slot number (use vendingMachine.purchase.A1?)
-                        if (userSelection.contains("A1")){
+                        System.out.println("Please select item slotNumber");
+                        String userSelection = scanner.nextLine();//select chosen item's slot number (use vendingMachine.purchase.A1?)
+                        Item chosenOne = vendingMachine.getItemAtSlotNumber(userSelection);
+                        if (chosenOne == null) {
+                            System.out.println("Selection Invalid. Please Try Again");
+                        } else if (vendingMachine.getSnackItem().containsKey(userSelection)) {
+                            if (vendingMachine.getBalance() < chosenOne.getPrice()) {
+                                System.out.println("Insufficient funds");
+                            }
 
                         }
-                        // if (userSelection.equals(vendingMachine
-
 
                         //Once selected, if balance < item price, return "Need more $" and return to purchase menu
                         // if once selected item quantity = 0, return "SOLD OUT" and return to purchase menu

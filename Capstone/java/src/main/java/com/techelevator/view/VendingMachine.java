@@ -46,9 +46,17 @@ public class VendingMachine {
         return balance;
     } //getter for balance
 
+    public Item getItemAtSlotNumber(String slotNumber){
+        Item chosenOne = snackItem.get(slotNumber);
+       return chosenOne;
+
+    }
+
     public void setBalance(double balance) { //setter for balance
         this.balance = balance;
     } //setter for balance
+
+
 }
 
 
