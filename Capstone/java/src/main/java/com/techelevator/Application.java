@@ -24,7 +24,7 @@ public class Application {
     private static String SELECT_ITEM_TO_PURCHASE = "Purchase An Item";
     private static String END_TRANSACTION = "End Transaction";
     private static String[] PURCHASE_ITEM_MENU = {DEPOSIT_MONEY_INTO_MACHINE, SELECT_ITEM_TO_PURCHASE, END_TRANSACTION};
-
+//created new string and array to hold them in order to create new purchase map to interact with
     private final MenuDrivenCLI ui = new MenuDrivenCLI();
     private VendingMachine vendingMachine = new VendingMachine();
     Scanner scanner = new Scanner(System.in);
@@ -50,10 +50,10 @@ public class Application {
                     int quantity = item.getQuantity();
                     System.out.println(entry.getKey() + ": " + item.getName() + " : " + item.getPrice());
                 }
-
+//pulling from vending machine, display the available snack items for purchase with slot numbers(getKey), item name, and price
             } else if (selection.equals(MAIN_MENU_OPTION_PURCHASE)) {
                 // Get user input (Deposit, Purchase, Refund) ui.promptForSelection(String[] purchaseOptions)
-                while (true) {
+                while (true) { //while  true keeps user in purchase menu instead of returning to main menu each time
                     String newSelection = ui.promptForSelection(PURCHASE_ITEM_MENU);
 
                     if (newSelection.equals(DEPOSIT_MONEY_INTO_MACHINE)) {//first option to deposit money into vending machine
@@ -61,7 +61,7 @@ public class Application {
                         System.out.println("Please deposit money");//prompt to deposit money
                         String moneyInput = scanner.nextLine();
                         double newBalance = Double.parseDouble(moneyInput); //+vendingMachine.getBalance();
-                        vendingMachine.setBalance(newBalance);
+                        vendingMachine.setBalance(newBalance); //sets balance to the entered amount of money
 
                     } else if (newSelection.equals(SELECT_ITEM_TO_PURCHASE)) {
 
@@ -72,29 +72,19 @@ public class Application {
                             System.out.println(entry.getKey() + ": " + item.getName() + " : " + item.getPrice());
                         }
                         System.out.println("Please select item slotNumber");
-                        String userSelection = scanner.nextLine();//select chosen item's slot number (use vendingMachine.purchase.A1?)
+                        String userSelection = scanner.nextLine();//select chosen item's slot number
 
                         String result = vendingMachine.purchaseItem(userSelection);
-                        System.out.print(result);
-
+                        System.out.print(result); //pulls balance and quantity and item transaction from VendingMachine
+                    } else if (newSelection.equals(END_TRANSACTION)) {
+                        String result = vendingMachine.returnChange(vendingMachine.getBalance());
+                        System.out.println(result); //returns the change transaction from VendingMachine
+                        System.out.println("Thank You. Have A Nice Day!");
                     }
-
-                    //if(chosenOne.getQuantity() == 0){
-                    // System.out.println("SOLD OUT");
-                    //Once selected, if balance < item price, return "Need more $" and return to purchase menu
-                    // if once selected item quantity = 0, return "SOLD OUT" and return to purchase menu
-                    //If item selected can be bought, then respond with equivalent sound based on item type
-                    //Once item is "bought" then deduct item price from balance and deduct 1 from item quantity amount
-                    //Return to purchase menu
-                }
-
-
-               // String[] purchaseOptions = {"", ""};
-            }
-        }
+                } // this ends the purchase menu while loop
+                // String[] purchaseOptions = {"", ""};
+            } //  this ends option two
+        } // this ends the main menu while loop
     }
 
-
 }
-
-//in application have vending machine object that calls vending machine items
