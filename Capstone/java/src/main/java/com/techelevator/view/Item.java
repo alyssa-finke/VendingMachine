@@ -9,12 +9,11 @@ public class Item {
     //should quantity be static/constant?
 
 
-    public Item(String name, double price, String type, int quantity, String slotNumber) {
+    public Item(String name, double price, String type, int quantity) {
         this.name = name;
         this.price = price;
         this.type = type;
         this.quantity = quantity;
-        this.slotNumber = slotNumber;
     }
 
     public String getName() {
@@ -31,10 +30,6 @@ public class Item {
 
     public int getQuantity() {
         return quantity;
-    }
-
-    public String getSlotNumber() {
-        return slotNumber;
     }
 }
 

@@ -6,15 +6,15 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Menu {
-
+//instance variables
 	private PrintWriter out;
 	private Scanner in;
-
+//constructors
 	public Menu(InputStream input, OutputStream output) {
 		this.out = new PrintWriter(output);
 		this.in = new Scanner(input);
 	}
-
+//methods
 	public Object getChoiceFromOptions(Object[] options) {
 		Object choice = null;
 		while (choice == null) {
